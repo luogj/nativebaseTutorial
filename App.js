@@ -1,23 +1,45 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import Expo from 'expo';
+import { Container, Header, Item, Icon, Input, Button, Text } from 'native-base';
 
 export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isReady: false,
+      search: ''
+    };
+  }
+
+  async componentWillMount() {
+    await Expo.Font.loadAsync({
+      'Roboto': require('native-base/Fonts/Roboto.ttf'),
+      'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf')
+    });
+    this.setState({ isReady: true });
+  }
+
+  search() {
+    
+  }
+
   render() {
+    if (!this.state.isReady) {
+      return (<Expo.AppLoading />);
+    }
+
     return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-      </View>
+      <Container>
+        <Header searchBar rounded>
+          <Item>
+            <Icon name="ios-search"/>
+            <Input placeholder="Search" value={this.state.search} onChangeText={(text) => this.setState({ search: text })} onSubmitEditing={()=> this.search()} />
+          </Item>
+          <Button transparent onPress={() => this.search()}>
+            <Text>Go</Text>
+          </Button>
+        </Header>
+      </Container>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
