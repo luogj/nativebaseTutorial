@@ -1,12 +1,18 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Expo from 'expo';
+import { StatusBar } from 'react-native';
 import { Container, Header, Item, Icon, Input, Button, Text } from 'native-base';
 
-export default class App extends React.Component {
+import styles from './styles';
+
+StatusBar.setTranslucent(false);
+
+export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isReady: false,
+      statusBarTranslucent: false,
       search: ''
     };
   }
@@ -20,7 +26,7 @@ export default class App extends React.Component {
   }
 
   search() {
-    
+
   }
 
   render() {
@@ -29,7 +35,7 @@ export default class App extends React.Component {
     }
 
     return (
-      <Container>
+      <Container style={ styles.container }>
         <Header searchBar rounded>
           <Item>
             <Icon name="ios-search"/>
